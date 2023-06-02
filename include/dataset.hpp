@@ -5,6 +5,9 @@
 
 namespace data
 {
+	typedef std::string key;
+	typedef std::string value;
+
 	class dataset
 	{
 	public:
@@ -12,12 +15,12 @@ namespace data
 		{
 		}
 
-		void set(std::string key, std::string value)
+		void set(const data::key &key, const data::value &value)
 		{
 			data[key] = value;
 		}
 
-		void append(std::string key, std::string value)
+		void append(const data::key &key, const data::value &value)
 		{
 			if (!this->has(key))
 			{
@@ -32,7 +35,7 @@ namespace data
 			}
 		}
 
-		bool del(std::string key)
+		bool del(const data::key &key)
 		{
 			if (!this->has(key))
 			{
@@ -43,12 +46,12 @@ namespace data
 			return true;
 		}
 
-		bool has(std::string key)
+		[[nodiscard("must be used, only checks if data container contains the key")]] bool has(data::key key)
 		{
 			return data.contains(key);
 		}
 
-		bool increment(const std::string &key)
+		bool increment(const data::key &key)
 		{
 			auto it = data.find(key);
 			std::string &value = it->second;
@@ -66,7 +69,7 @@ namespace data
 			return true;
 		}
 
-		bool decrement(const std::string &key)
+		bool decrement(const data::key &key)
 		{
 			auto it = data.find(key);
 			std::string &value = it->second;
@@ -84,15 +87,15 @@ namespace data
 			return true;
 		}
 
-		uint size()
+		[[nodiscard("must be used, only retrieves size")]] uint size()
 		{
 			return data.size();
 		}
 
 		template<typename T>
-		T get(std::string key);
+		[[nodiscard("must be used, only returns the value retrieved from the data container")]] T get(const std::string &key);
 
 	private:
-		std::unordered_map<std::string, std::string> data;
+		std::unordered_map<data::key, data::value> data;
 	};
 }

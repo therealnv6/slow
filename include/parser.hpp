@@ -27,7 +27,7 @@ namespace parse
 			registers.emplace("exists", &parser::exists);
 		}
 
-		std::string execute(std::string command, std::string key)
+		std::string execute(std::string command, data::key key)
 		{
 			if (key.empty())
 			{
@@ -47,7 +47,7 @@ namespace parse
 			return result;
 		}
 
-		std::string get(std::string key)
+		std::string get(data::key key)
 		{
 			if (data.has(key))
 			{
@@ -59,7 +59,7 @@ namespace parse
 			}
 		}
 
-		std::string set(std::string key)
+		std::string set(data::key key)
 		{
 			size_t delimIndex = key.find(':');
 			if (delimIndex != std::string::npos && delimIndex < key.size() - 1)
@@ -75,7 +75,7 @@ namespace parse
 			}
 		}
 
-		std::string app(std::string key)
+		std::string app(data::key key)
 		{
 			size_t delimIndex = key.find(':');
 			if (delimIndex != std::string::npos && delimIndex < key.size() - 1)
@@ -91,27 +91,27 @@ namespace parse
 			}
 		}
 
-		std::string del(std::string key)
+		std::string del(data::key key)
 		{
 			return data.has(key) && data.del(key) ? "OK" : "N/A";
 		}
 
-		std::string inc(std::string key)
+		std::string inc(data::key key)
 		{
 			return data.has(key) && data.increment(key) ? "OK" : "N/A";
 		}
 
-		std::string dec(std::string key)
+		std::string dec(data::key key)
 		{
 			return data.has(key) && data.decrement(key) ? "OK" : "N/A";
 		}
 
-		std::string exists(std::string key)
+		std::string exists(data::key key)
 		{
 			return std::to_string(data.has(key));
 		}
 
-		std::string len(std::string key)
+		std::string len(data::key key)
 		{
 			return std::to_string(data.size());
 		}
