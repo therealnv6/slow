@@ -61,12 +61,12 @@ namespace parse
 
 		std::string set(data::key key)
 		{
-			size_t delimIndex = key.find(':');
-			if (delimIndex != std::string::npos && delimIndex < key.size() - 1)
+			size_t delim = key.find(':');
+			if (delim != std::string::npos && delim < key.size() - 1)
 			{
-				std::string value = key.substr(delimIndex + 1);
-				key = key.substr(0, delimIndex);
-				data.set(key, value);
+				std::string value = key.substr(delim + 1);
+				std::string new_key = key.substr(0, delim);
+				data.set(new_key, value);
 				return "OK";
 			}
 			else
@@ -77,12 +77,12 @@ namespace parse
 
 		std::string app(data::key key)
 		{
-			size_t delimIndex = key.find(':');
-			if (delimIndex != std::string::npos && delimIndex < key.size() - 1)
+			size_t delim = key.find(':');
+			if (delim != std::string::npos && delim < key.size() - 1)
 			{
-				std::string value = key.substr(delimIndex + 1);
-				key = key.substr(0, delimIndex);
-				data.append(key, value);
+				std::string value = key.substr(delim + 1);
+				std::string new_key = key.substr(0, delim);
+				data.append(new_key, value);
 				return "OK";
 			}
 			else
