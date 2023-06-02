@@ -15,16 +15,14 @@ int main()
 {
 	try
 	{
-		// Create a TCP socket
 		server::tcp_server server(8080);
 		data::dataset data;
 
 		parse::parser parser(server, data);
 
-		std::cout << "opening client" << std::endl;
+		spdlog::info("opening server on port 8080");
 
 		while (true)
-
 		{
 			server.accept_client();
 
@@ -35,11 +33,7 @@ int main()
 
 			rtrim(key);
 
-			std::string response;
-
-			{
-				response = parser.execute(command, key);
-			}
+			std::string response = parser.execute(command, key);
 
 			server.send_to_client(response);
 			server.close_clients();
